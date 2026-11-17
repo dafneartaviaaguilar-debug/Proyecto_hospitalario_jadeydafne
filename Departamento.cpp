@@ -17,3 +17,14 @@ string Departamento::getNombre()
 {
 	return nombre;
 }
+//agregar puestos al departamento
+void Departamento::agregarPuesto(Puesto* dato)
+{
+	puestos.insertarPuesto(dato);//guardar el puesto en la lista
+}
+
+//mostrar los puestos del departamento
+void Departamento::mostrarPuestos()
+{
+	puestos.mostrarPuestos();//mostrar la lista de puestos
+}
