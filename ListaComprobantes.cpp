@@ -51,7 +51,11 @@ void ListaComprobantes::mostrarComprobantes()
         actual = actual->getSiguiente();
     }
 }
-
+//obtener el primer nodo de la lista
+NodoComprobante* ListaComprobantes::getCabeza()
+{
+    return cabeza;//devolver el primer nodo
+}
 bool ListaComprobantes::estaVacia()
 {
     return cabeza == NULL;
