@@ -11,7 +11,8 @@ public:
     void insertarComprobante(ComprobantePago* dato);
     void mostrarComprobantes();
     bool estaVacia();
-
+   //declarar el metodo para obtener el primer nodo
+NodoComprobante* getCabeza();
 private:
     NodoComprobante* cabeza;
 };
