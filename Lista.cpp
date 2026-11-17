@@ -66,3 +66,9 @@ bool Lista::estaVacia()
 {
 	return cabeza == NULL;
 }
+
+//obtener el primer nodo de la lista
+Nodo* Lista::getCabeza()
+{
+    return cabeza;//devolver el primer nodo
+}
