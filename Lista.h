@@ -16,7 +16,8 @@ public:
 	void insertarEmpleado(Empleado* dato);
 	void mostrarEmpleados();
 	bool estaVacia();
-	
+	//declarar el metodo para obtener el primer nodo
+Nodo* getCabeza();
 private:
 	Nodo* cabeza;//apunta al primer nodo de la lista
 };
