@@ -15,9 +15,13 @@ public:
 	
 	//declarar los getters para devolver info
 	string getNombre();
+	//declarar los metodos para trabajar con los puestos
+	void agregarPuesto(Puesto* dato);
+	void mostrarPuestos();
 	
 private:
 	string nombre;//guardar el nombre del departamento
+	ListaPuestos puestos;//guardar los puestos del departamento
 };
 
 #endif
