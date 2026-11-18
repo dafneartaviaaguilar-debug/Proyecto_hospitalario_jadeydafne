@@ -7,7 +7,8 @@ Planilla Hospitalaria
 Es un sistema que ayuda a administrar la planilla de un hospital. Permite registrar empleados, departamentos y puestos, calcular salarios y generar comprobantes de pago.
 
 
-#---Características del sistema---
+#Características del sistema
+
 -Registra médicos, enfermeros y administrativos
 -Administra departamentos y puestos
 -Calcula salarios neto y bruto
