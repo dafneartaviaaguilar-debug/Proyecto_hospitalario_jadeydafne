@@ -17,6 +17,7 @@ string Departamento::getNombre()
 {
 	return nombre;
 }
+
 //agregar puestos al departamento
 void Departamento::agregarPuesto(Puesto* dato)
 {
@@ -27,4 +28,9 @@ void Departamento::agregarPuesto(Puesto* dato)
 void Departamento::mostrarPuestos()
 {
 	puestos.mostrarPuestos();//mostrar la lista de puestos
+}
+//obtener el primer puesto del departamento
+NodoPuesto* Departamento::getCabezaPuestos()
+{
+	return puestos.getCabeza();//devolver el primer nodo de la lista de puestos
 }
