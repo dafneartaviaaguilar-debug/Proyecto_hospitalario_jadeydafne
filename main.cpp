@@ -76,17 +76,17 @@ int main()
 			
 			if (tipo == "Medico")
 			{
-				deducciones = calculadora->calcularTotalDeducciones(salarioBase);
+				deducciones = calculadora->calcularTotalDeducciones(salarioBase, false);
 				nuevoEmpleado = new Medico(cedula, nombre, salarioBase, horasExtra, pagoHoraExtra, bonificacionNocturna, deducciones);
 			}
 			else if (tipo == "Enfermero")
 			{
-				deducciones = calculadora->calcularTotalDeducciones(salarioBase);
+				deducciones = calculadora->calcularTotalDeducciones(salarioBase, false);
 				nuevoEmpleado = new Enfermero(cedula, nombre, salarioBase, horasExtra, pagoHoraExtra, bonificacionNocturna, deducciones);
 			}
 			else if (tipo == "Administrativo")
 			{
-				deducciones = calculadora->calcularTotalDeducciones(salarioBase);
+				deducciones = calculadora->calcularTotalDeducciones(salarioBase, false);
 				nuevoEmpleado = new Administrativo(cedula, nombre, salarioBase, horasExtra, pagoHoraExtra, bonificacionNocturna, deducciones);
 			}
 			
@@ -94,6 +94,44 @@ int main()
 			{
 				nuevoEmpleado->setNombreDepartamento(nombreDepartamento);
 				empleados.insertarEmpleado(nuevoEmpleado);
+			}
+		}
+	}
+	
+	// Cargar quienes pertenecen a la asociacion solidarista
+	string contenidoAsociaciones = archivo.leer("asociacion.txt");
+	istringstream entradaAsociaciones(contenidoAsociaciones);
+	int cantidadAsociaciones = 0;
+	
+	if (entradaAsociaciones >> cantidadAsociaciones)
+	{
+		entradaAsociaciones.ignore();
+		
+		for (int i = 0; i < cantidadAsociaciones; i++)
+		{
+			string cedulaAsociacion;
+			int perteneceAsociacion = 0;
+			getline(entradaAsociaciones, cedulaAsociacion, '-');
+			entradaAsociaciones >> perteneceAsociacion;
+			entradaAsociaciones.ignore();
+			
+			Nodo* empleadoActual = empleados.getCabeza();
+			while (empleadoActual != NULL)
+			{
+				Empleado* empleado = empleadoActual->getDato();
+				if (empleado->getCedula() == cedulaAsociacion)
+				{
+					if (perteneceAsociacion == 1)
+					{
+						empleado->setPerteneceAsociacion(true);
+					}
+					else
+					{
+						empleado->setPerteneceAsociacion(false);
+					}
+					empleado->setDeducciones(calculadora->calcularTotalDeducciones(empleado->getSalarioBase(), empleado->getPerteneceAsociacion()));
+				}
+				empleadoActual = empleadoActual->getSiguiente();
 			}
 		}
 	}
@@ -250,7 +288,7 @@ int main()
 			bonificacionNocturna = cantidadGuardiasNocturnas * PAGO_POR_GUARDIA_NOCTURNA;
 			
 			// Las deducciones se calculan automaticamente
-			deducciones = calculadora->calcularTotalDeducciones(salarioBase);
+			deducciones = calculadora->calcularTotalDeducciones(salarioBase, false);
 			
 			cout << "Ingrese el departamento: ";
 			cin.ignore();
@@ -394,6 +432,63 @@ int main()
 				
 				if (empleado->getCedula() == cedula)
 				{
+					int respuestaAsociacion = 0;
+					cout << "Â¿El empleado pertenece a la asociacion solidarista?" << endl;
+					cout << "1. Si" << endl;
+					cout << "2. No" << endl;
+					cout << "Seleccione una opcion: ";
+					cin >> respuestaAsociacion;
+					while (respuestaAsociacion != 1 && respuestaAsociacion != 2)
+					{
+						if (cin.fail())
+						{
+							cin.clear();
+							cin.ignore(1000, 10);
+						}
+						cout << "Escriba 1 para Si o 2 para No: ";
+						cin >> respuestaAsociacion;
+					}
+					if (respuestaAsociacion == 1)
+					{
+						empleado->setPerteneceAsociacion(true);
+					}
+					else
+					{
+						empleado->setPerteneceAsociacion(false);
+					}
+					empleado->setDeducciones(calculadora->calcularTotalDeducciones(empleado->getSalarioBase(), empleado->getPerteneceAsociacion()));
+					
+					// Guardar inmediatamente la respuesta de asociacion
+					string datosAsociaciones = "";
+					int cantidadEmpleadosAsociacion = 0;
+					Nodo* empleadoParaGuardar = empleados.getCabeza();
+					while (empleadoParaGuardar != NULL)
+					{
+						cantidadEmpleadosAsociacion++;
+						empleadoParaGuardar = empleadoParaGuardar->getSiguiente();
+					}
+					datosAsociaciones = to_string(cantidadEmpleadosAsociacion) + "-";
+					empleadoParaGuardar = empleados.getCabeza();
+					while (empleadoParaGuardar != NULL)
+					{
+						Empleado* empleadoGuardado = empleadoParaGuardar->getDato();
+						datosAsociaciones += empleadoGuardado->getCedula() + "-";
+						if (empleadoGuardado->getPerteneceAsociacion() == true)
+						{
+							datosAsociaciones += "1-";
+						}
+						else
+						{
+							datosAsociaciones += "0-";
+						}
+						empleadoParaGuardar = empleadoParaGuardar->getSiguiente();
+					}
+					bool asociacionesGuardadas = archivo.guardar("asociacion.txt", datosAsociaciones);
+					if (asociacionesGuardadas == false)
+					{
+						cout << "No se pudo guardar la pertenencia a la asociacion." << endl;
+					}
+					
 					NodoDepartamento* actualDepartamento = departamentos.getCabeza();
 					
 					// Buscar el departamento del empleado
@@ -403,7 +498,7 @@ int main()
 						
 						if (departamento->getNombre() == empleado->getNombreDepartamento())
 						{
-						ComprobantePago* nuevoComprobante = new ComprobantePago(empleado, departamento, calculadora, calculadora);
+							ComprobantePago* nuevoComprobante = new ComprobantePago(empleado, departamento, calculadora, calculadora);
 							
 							comprobantes.insertarComprobante(nuevoComprobante);
 							
@@ -538,7 +633,34 @@ int main()
 			bool departamentosGuardados = archivo.guardar("departamentos.txt", datosDepartamentos);
 			bool planillaGuardada = archivo.guardar("planilla.txt", datosPlanilla);
 			
-			if (empleadosGuardados && departamentosGuardados && planillaGuardada)
+			// Guardar si cada empleado pertenece a la asociacion
+			string datosAsociaciones = "";
+			int cantidadEmpleadosAsociacion = 0;
+			actualEmpleado = empleados.getCabeza();
+			while (actualEmpleado != NULL)
+			{
+				cantidadEmpleadosAsociacion++;
+				actualEmpleado = actualEmpleado->getSiguiente();
+			}
+			datosAsociaciones = to_string(cantidadEmpleadosAsociacion) + "-";
+			actualEmpleado = empleados.getCabeza();
+			while (actualEmpleado != NULL)
+			{
+				Empleado* empleado = actualEmpleado->getDato();
+				datosAsociaciones += empleado->getCedula() + "-";
+				if (empleado->getPerteneceAsociacion() == true)
+				{
+					datosAsociaciones += "1-";
+				}
+				else
+				{
+					datosAsociaciones += "0-";
+				}
+				actualEmpleado = actualEmpleado->getSiguiente();
+			}
+			bool asociacionesGuardadas = archivo.guardar("asociacion.txt", datosAsociaciones);
+			
+			if (empleadosGuardados && departamentosGuardados && planillaGuardada && asociacionesGuardadas)
 			{
 				cout << "Informacion guardada correctamente." << endl;
 			}
