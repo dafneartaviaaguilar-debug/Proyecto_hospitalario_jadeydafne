@@ -6,15 +6,15 @@
 class NodoComprobante
 {
 public:
-    NodoComprobante(ComprobantePago* dato);
-    void setDato(ComprobantePago* dato);
-    void setSiguiente(NodoComprobante* siguiente);
-    ComprobantePago* getDato();
-    NodoComprobante* getSiguiente();
-
+	NodoComprobante(ComprobantePago* dato);
+	void setDato(ComprobantePago* dato);
+	void setSiguiente(NodoComprobante* siguiente);
+	ComprobantePago* getDato();
+	NodoComprobante* getSiguiente();
+	
 private:
-    ComprobantePago* dato;
-    NodoComprobante* siguiente;
+	ComprobantePago* dato;
+	NodoComprobante* siguiente;
 };
 
 #endif
