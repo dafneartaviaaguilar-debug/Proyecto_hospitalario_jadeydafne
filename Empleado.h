@@ -1,7 +1,8 @@
-#ifndef EMPLEADO_H //evita que se recorra varias veces 
+
+#ifndef EMPLEADO_H
 #define EMPLEADO_H
 
-#include "Persona.h"//hereda de persona porque todo empleado sera persona y tendra nombre y cedula 
+#include "Persona.h"
 
 class Empleado : public Persona
 {
@@ -32,10 +33,18 @@ public:
 	double getBonificacionNocturna();
 	double getDeducciones();
 	
+	//cambio
+	//declarar el setter y getter del departamento
+	void setNombreDepartamento(string nombre);
+	string getNombreDepartamento();
+	
 private://nadie puede acceder
 	double salarioBase;//variables iniciales 
 	double horasExtra;
 	double pagoHoraExtra;
 	double bonificacionNocturna;
 	double deducciones;
+	string nombreDepartamento;
 };
+
+#endif
