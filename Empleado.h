@@ -1,4 +1,3 @@
-
 #ifndef EMPLEADO_H
 #define EMPLEADO_H
 
@@ -25,6 +24,7 @@ public:
 	void setPagoHoraExtra(double pagoHoraExtra);
 	void setBonificacionNocturna(double bonificacionNocturna);
 	void setDeducciones(double deducciones);
+	void setPerteneceAsociacion(bool perteneceAsociacion);
 	
 	//declarar los getters para devolver info
 	double getSalarioBase();
@@ -32,6 +32,7 @@ public:
 	double getPagoHoraExtra();
 	double getBonificacionNocturna();
 	double getDeducciones();
+	bool getPerteneceAsociacion();
 	
 	//cambio
 	//declarar el setter y getter del departamento
@@ -44,6 +45,7 @@ private://nadie puede acceder
 	double pagoHoraExtra;
 	double bonificacionNocturna;
 	double deducciones;
+	bool perteneceAsociacion;
 	string nombreDepartamento;
 };
 
