@@ -33,11 +33,17 @@ double CalculadoraPlanilla::calcularIVM(double salarioBase)
 	return salarioBase * 0.0433;
 }
 
-// La asociacion queda en cero porque no se dio un porcentaje fijo
-double CalculadoraPlanilla::calcularAsociacion(double salarioBase)
+// Aplicar la deduccion de asociacion si el empleado pertenece
+double CalculadoraPlanilla::calcularAsociacion(double salarioBase, bool perteneceAsociacion)
 {
-	// El archivo de salario no da un porcentaje fijo de asociacion
-	return salarioBase * 0 / 100;
+	if (perteneceAsociacion == true)
+	{
+		return salarioBase * 0.05;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
 // Calcular ROP
@@ -53,13 +59,13 @@ double CalculadoraPlanilla::calcularFCL(double salarioBase)
 }
 
 // Sumar todas las deducciones del salario base
-double CalculadoraPlanilla::calcularTotalDeducciones(double salarioBase)
+double CalculadoraPlanilla::calcularTotalDeducciones(double salarioBase, bool perteneceAsociacion)
 {
 	double total = 0;
 	total = calcularImpuestoRenta(salarioBase);
 	total = total + calcularCCSS(salarioBase);
 	total = total + calcularIVM(salarioBase);
-	total = total + calcularAsociacion(salarioBase);
+	total = total + calcularAsociacion(salarioBase, perteneceAsociacion);
 	total = total + calcularROP(salarioBase);
 	total = total + calcularFCL(salarioBase);
 	return total;
