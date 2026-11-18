@@ -1,23 +1,25 @@
-#ifndef PUESTO_H
-#define PUESTO_H
+#ifndef NODOPUESTO_H
+#define NODOPUESTO_H
 
-#include <string> //libreria
-using namespace std;
+#include "Puesto.h" //agregar archivo.h
 
-class Puesto
+class NodoPuesto
 {
 public:
-	//const con parametros
-	Puesto(string nombre);
+	//const con parametros, recibe un puesto
+	NodoPuesto(Puesto* dato);
 	
 	//declarar los setters para acceder
-	void setNombre(string nombre);
+	void setDato(Puesto* dato);
+	void setSiguiente(NodoPuesto* siguiente);
 	
 	//declarar los getters para devolver info
-	string getNombre();
+	Puesto* getDato();
+	NodoPuesto* getSiguiente();
 	
 private:
-	string nombre;//guardar el nombre del puesto
+	Puesto* dato;//guardar la informacion del puesto
+	NodoPuesto* siguiente;//apuntar al siguiente nodo
 };
 
 #endif
