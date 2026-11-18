@@ -8,6 +8,7 @@ Empleado::Empleado(string cedula, string nombre, double salarioBase,double horas
 	this->pagoHoraExtra = pagoHoraExtra;
 	this->bonificacionNocturna = bonificacionNocturna;
 	this->deducciones = deducciones;
+	this->perteneceAsociacion = false;
 }
 //destructor
 Empleado::~Empleado()
@@ -39,6 +40,11 @@ void Empleado::setDeducciones(double deducciones)
 	this->deducciones = deducciones;
 }
 
+void Empleado::setPerteneceAsociacion(bool perteneceAsociacion)
+{
+	this->perteneceAsociacion = perteneceAsociacion;
+}
+
 //DELARAR LOS GETS
 double Empleado::getSalarioBase()
 {
@@ -65,6 +71,11 @@ double Empleado::getDeducciones()
 	return deducciones;
 }
 
+bool Empleado::getPerteneceAsociacion()
+{
+	return perteneceAsociacion;
+}
+
 //Calculo de los salarios
 double Empleado::calcularSalarioBruto()//EL SALARIO total 
 {
@@ -87,4 +98,3 @@ string Empleado::getNombreDepartamento()
 {
 	return nombreDepartamento;
 }
-
