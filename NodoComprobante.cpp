@@ -2,26 +2,26 @@
 
 NodoComprobante::NodoComprobante(ComprobantePago* dato)
 {
-    this->dato = dato;
-    siguiente = NULL;
+	this->dato = dato;
+	siguiente = NULL;
 }
 
 void NodoComprobante::setDato(ComprobantePago* dato)
 {
-    this->dato = dato;
+	this->dato = dato;
 }
 
 void NodoComprobante::setSiguiente(NodoComprobante* siguiente)
 {
-    this->siguiente = siguiente;
+	this->siguiente = siguiente;
 }
 
 ComprobantePago* NodoComprobante::getDato()
 {
-    return dato;
+	return dato;
 }
 
 NodoComprobante* NodoComprobante::getSiguiente()
 {
-    return siguiente;
+	return siguiente;
 }
