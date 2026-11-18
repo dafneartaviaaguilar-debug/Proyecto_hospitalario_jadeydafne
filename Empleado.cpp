@@ -1,5 +1,4 @@
-#include "Empleado.h" //incluir el archivo cabecera 
-
+#include "Empleado.h"
 //const con parametros-->:-->hereda de persona dos variables 
 Empleado::Empleado(string cedula, string nombre, double salarioBase,double horasExtra, double pagoHoraExtra,double bonificacionNocturna, double deducciones): Persona(cedula, nombre)
 {
@@ -75,5 +74,17 @@ double Empleado::calcularSalarioBruto()//EL SALARIO total
 double Empleado::calcularSalarioNeto()//el salario que te llega 
 {
 	return calcularSalarioBruto() - deducciones;
+}
+
+//guardar el nombre del departamento
+void Empleado::setNombreDepartamento(string nombre)
+{
+	nombreDepartamento = nombre;
+}
+
+//devolver el nombre del departamento
+string Empleado::getNombreDepartamento()
+{
+	return nombreDepartamento;
 }
 
