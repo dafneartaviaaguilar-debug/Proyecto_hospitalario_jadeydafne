@@ -62,10 +62,10 @@ void ComprobantePago::mostrarComprobante()
 			cout << "Impuesto renta: " << calculadoraImpuesto->calcularImpuestoRenta(salarioBase) << endl;
 			cout << "CCSS: " << calculadoraDeducciones->calcularCCSS(salarioBase) << endl;
 			cout << "IVM: " << calculadoraDeducciones->calcularIVM(salarioBase) << endl;
-			cout << "Asociacion: " << calculadoraDeducciones->calcularAsociacion(salarioBase) << endl;
+			cout << "Asociacion: " << calculadoraDeducciones->calcularAsociacion(salarioBase, empleado->getPerteneceAsociacion()) << endl;
 			cout << "ROP: " << calculadoraDeducciones->calcularROP(salarioBase) << endl;
 			cout << "FCL: " << calculadoraDeducciones->calcularFCL(salarioBase) << endl;
-			cout << "Deducciones: " << calculadoraDeducciones->calcularTotalDeducciones(salarioBase) << endl;
+			cout << "Deducciones: " << calculadoraDeducciones->calcularTotalDeducciones(salarioBase, empleado->getPerteneceAsociacion()) << endl;
 		}
 		else
 		{
