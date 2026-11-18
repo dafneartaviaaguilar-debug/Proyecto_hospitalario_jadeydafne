@@ -14,10 +14,10 @@ class IDeduccionesSociales
 public:
 	virtual double calcularCCSS(double salarioBase) = 0;
 	virtual double calcularIVM(double salarioBase) = 0;
-	virtual double calcularAsociacion(double salarioBase) = 0;
+	virtual double calcularAsociacion(double salarioBase, bool perteneceAsociacion) = 0;
 	virtual double calcularROP(double salarioBase) = 0;
 	virtual double calcularFCL(double salarioBase) = 0;
-	virtual double calcularTotalDeducciones(double salarioBase) = 0;
+	virtual double calcularTotalDeducciones(double salarioBase, bool perteneceAsociacion) = 0;
 };
 
 // La clase realiza los calculos de la planilla hospitalaria
@@ -28,10 +28,10 @@ public:
 	double calcularImpuestoRenta(double salarioBase);
 	double calcularCCSS(double salarioBase);
 	double calcularIVM(double salarioBase);
-	double calcularAsociacion(double salarioBase);
+	double calcularAsociacion(double salarioBase, bool perteneceAsociacion);
 	double calcularROP(double salarioBase);
 	double calcularFCL(double salarioBase);
-	double calcularTotalDeducciones(double salarioBase);
+	double calcularTotalDeducciones(double salarioBase, bool perteneceAsociacion);
 };
 
 #endif
